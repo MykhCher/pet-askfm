@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>Ask a question</title>
+{% endblock title %}
+{% block content %}
+    <form method='POST'>
+        {% csrf_token %}
+        <div class='ui container'>
+            <div>
+                {{form.title}}
+            </div>
+            <div>
+                {{form.body}}
+            </div>
+            <div>
+                <input type='submit' class='ui button' value='Ask a question'>
+            </div>
+        </div>
+    </form>
+{% endblock content %}

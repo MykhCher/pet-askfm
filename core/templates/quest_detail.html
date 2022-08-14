@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="ui items">
+    <div class="item">
+        <div class="content">
+        <a class="header">{{quest.author}}</a>
+        <div class='meta'>
+            <h3>{{quest.title}}</h3>
+        </div>
+        <div class="description">
+            <span>{{quest.body}}</span>
+        </div>
+        <div class="extra">
+            Posted : {{quest.created_at}}
+        </div>
+        </div>
+    </div>
+</div>
+<hr />
+<br />
+{% if user.is_authenticated %}
+<br/>
+<div>
+    <form action='' method='post'>{% csrf_token %}
+        {{form.body}}
+        <input class='ui primary button' type="submit" value="Answer a question">
+    </form>
+</div>
+{% else %}
+<div>
+    <a href={% url 'login' %} class='ui button'>
+        Sign in or register to answer
+    </a>
+</div>
+{% endif %}
+<h3>Answers:</h3>
+{% if not quest.answers.all %}
+<p>There are no answers yet, so you will be first</p>
+{% endif %}
+{% for ans in quest.answers.all %}
+<div class="ui items">
+    <div class="item">
+        <div class="content">
+            <a class="header">{{ans.author}}</a>
+            <div class="description">
+                <span>{{ans.body}}</span>
+            </div>
+            <div class="extra">
+                Posted : {{ans.created_at}}
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock content %}
